@@ -1,8 +1,6 @@
 # RCreds
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/r_creds`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Work simple with creds in Rails 5.2 and above!
 
 ## Installation
 
@@ -22,7 +20,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+RCreds give an ability to read credentials in credentials.yml, ENV or use default value!
+
+```ruby
+# returns value from credentials.yml for current environment 
+RCreds.fetch(:payment_system, :secret_key) 
+```
+```ruby
+# returns value from credentials.yml for current environment or default 
+RCreds.fetch(:redis, :url, default: 'redis://localhost:6379/0')
+```
+```ruby
+# if value is set in as ENV variable it will be fetched if it's not set in credentials.yml
+# keys concatenates as in following example
+ENV['REDIS_URL'] = 'redis://real_redis_url'
+RCreds.fetch(:redis, :url, default: 'redis://localhost:6379/0') # output: redis://real_redis_url
+```
+RCreds search for values in following order: credentials.yml > ENV > default:
 
 ## Development
 
