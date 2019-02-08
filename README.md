@@ -1,6 +1,6 @@
 # RCreds
 
-Work simple with creds in Rails 5.2 and above!
+RCreds makes working with Rails 5.2 credentials easier
 
 ## Installation
 

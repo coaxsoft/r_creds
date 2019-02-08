@@ -9,10 +9,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ["OrestF"]
   spec.email         = ["falchuko@gmail.com"]
 
-  spec.summary       = 'RCreds make working with Rails 5.2 credentials easier'
-  spec.description   = 'RCreds make working with Rails 5.2 credentials easier'
+  spec.summary       = 'RCreds makes working with Rails 5.2 credentials easier'
+  spec.description   = 'RCreds makes working with Rails 5.2 credentials easier'
   spec.homepage      = 'https://github.com/OrestF/r_creds'
   spec.license       = "MIT"
+  spec.required_ruby_version = '>= 2.0.0'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
