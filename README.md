@@ -42,6 +42,11 @@ RCreds.fetch(:aws, :access_key_id, default: 'some_default_test_key') # output: s
 ```
 RCreds searches for values in following order: credentials.yml > ENV > default and returns nil if nothing match
 
+RCreds uses `Rails.env` to determinate environment. But you can set any environement.
+```ruby
+RCreds.fetch(:aws, :access_key_id, environment: 'production')
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
