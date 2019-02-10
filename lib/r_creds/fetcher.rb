@@ -2,9 +2,10 @@ module RCreds
   class Fetcher
     class NoRailsError < StandardError; end
 
-    def initialize(keys, default)
+    def initialize(keys, default, environment)
       @keys = keys
       @default = default
+      @environment = environment
     end
 
     attr_reader :keys, :default
@@ -14,8 +15,14 @@ module RCreds
       fetch
     end
 
+    private
+
+    def environment
+      (presence?(@environment) || Rails.env).to_sym
+    end
+
     def fetch
-      cred = Rails.application.credentials.dig(Rails.env.to_sym, *keys)
+      cred = Rails.application.credentials.dig(environment, *keys)
 
       presence?(cred) || presence?(ENV[keys.join('_').upcase]) || default
     end
