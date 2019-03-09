@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'RCreds makes working with Rails 5.2 credentials easier'
   spec.description   = 'RCreds makes working with Rails 5.2 credentials easier'
-  spec.homepage      = 'https://github.com/OrestF/r_creds'
+  spec.homepage      = 'https://github.com/coaxsoft/r_creds'
   spec.license       = "MIT"
   spec.required_ruby_version = '>= 2.0.0'
 
