@@ -22,7 +22,7 @@ module RCreds
     end
 
     def fetch
-      cred = Rails.application.credentials.dig(environment, *keys)
+      cred = send("fetch_rails_#{@rails_version}")
 
       presence?(cred) || presence?(ENV[keys.join('_').upcase]) || default
     end
@@ -41,10 +41,22 @@ module RCreds
       cred.respond_to?(:empty?) ? !!cred.empty? : !cred
     end
 
+    def fetch_rails_5
+      Rails.application.credentials.dig(environment, *keys)
+    end
+
+    def fetch_rails_6
+      Rails.application.credentials.dig(*keys)
+    end
+
     def check_rails
-      return true if defined?(::Rails)
+      return define_rails_strategy && true if defined?(::Rails)
 
       raise NoRailsError.new 'RCreds works with 5.2 and above'
+    end
+
+    def define_rails_strategy
+      define_instance_variable("@rails_version", Rails.version.to_i)
     end
   end
 end
