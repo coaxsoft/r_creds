@@ -46,7 +46,16 @@ module RCreds
     end
 
     def fetch_rails_6
-      Rails.application.credentials.dig(*keys)
+      if rails6_multi_env?
+        puts "WARNING! Environment choice does not work in Rails 6. Fetching credentials for '#{Rails.env}'" if presence?(@environment)
+        Rails.application.credentials.dig(*keys)
+      else
+        Rails.application.credentials.dig(environment, *keys)
+      end
+    end
+
+    def rails6_multi_env?
+      Rails.application.credentials.content_path.basename.to_s != 'credentials.yml.enc'
     end
 
     def check_rails
@@ -56,7 +65,7 @@ module RCreds
     end
 
     def define_rails_strategy
-      define_instance_variable("@rails_version", Rails.version.to_i)
+      @rails_version = Rails.version.to_i
     end
   end
 end
