@@ -1,6 +1,6 @@
-# RCreds
+# RCreds v1.0.0
 
-RCreds makes working with Rails 5.2 credentials easier
+RCreds makes working with Rails 5.2/6.0 credentials easier
 
 ## Installation
 
@@ -42,10 +42,14 @@ RCreds.fetch(:aws, :access_key_id, default: 'some_default_test_key') # output: s
 ```
 RCreds searches for values in following order: credentials.yml > ENV > default and returns nil if nothing match
 
-RCreds uses `Rails.env` to determinate environment. But you can set any environement.
+# DEPRECATED 
+`Rails 6 loads only one specific environment credentials and does not allow to cahnge it.` 
+
+RCreds uses `Rails.env` to determinate environment. But you can set any environment.
 ```ruby
 RCreds.fetch(:aws, :access_key_id, environment: 'production')
 ```
+`Will be removed in next version`
 
 ## Development
 
