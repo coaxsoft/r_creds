@@ -3,7 +3,7 @@ module RCreds
     class NoRailsError < StandardError; end
 
     def initialize(keys, default, environment)
-      @keys = keys
+      @keys = keys.map!(&:to_sym)
       @default = default
       @environment = environment
     end
