@@ -1,4 +1,4 @@
-# RCreds v1.0.1
+# RCreds v1.0.2
 
 RCreds makes working with Rails 5.2/6.0 credentials easier
 
