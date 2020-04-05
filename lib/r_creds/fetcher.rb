@@ -61,7 +61,7 @@ module RCreds
     def check_rails
       return define_rails_strategy && true if defined?(::Rails)
 
-      raise NoRailsError.new 'RCreds works with 5.2 and above'
+      raise NoRailsError, 'RCreds works with 5.2 and above'
     end
 
     def define_rails_strategy
