@@ -1,6 +1,6 @@
-# RCreds v1.0.2
+# RCreds v1.1.0
 
-RCreds makes work with Rails 5.2/6.0 credentials easier
+RCreds makes working with Rails 5.2/6/7 credentials easier
 
 ## Installation
 
@@ -19,7 +19,7 @@ Or install it yourself as:
     $ gem install r_creds
 
 ## Usage
-There is no need to do this:
+There are no need to do this:
 ```ruby
 Rails.application.credentials[Rails.env.to_sym][:aws][:access_key_id]
 ```
@@ -28,7 +28,7 @@ Use RCreds instead:
 RCreds.fetch(:aws, :access_key_id)
 ```
 
-RCreds gives an ability to read credentials in credentials.yml, ENV or use default value!
+RCreds give an ability to read credentials in credentials.yml, ENV or use default value!
 ```ruby
 # value set in credentials.yml
 RCreds.fetch(:aws, :access_key_id) # output: secret_key_from_credentials_yaml
@@ -40,7 +40,7 @@ RCreds.fetch(:aws, :access_key_id) # output: aws_key_from_env_variable
 # no value in credentials.yml and ENV - use default
 RCreds.fetch(:aws, :access_key_id, default: 'some_default_test_key') # output: some_default_test_key
 ```
-RCreds searches for values in the following order: credentials.yml > ENV > default and returns nil if nothing match
+RCreds searches for values in following order: credentials.yml > ENV > default and returns nil if nothing match
 
 # DEPRECATED 
 `Rails 6 loads only one specific environment credentials and does not allow to cahnge it.` 
