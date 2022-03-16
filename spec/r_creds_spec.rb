@@ -1,6 +1,6 @@
 RSpec.describe RCreds do
   it 'has a version number' do
-    expect(RCreds::VERSION).to eq('1.0.2')
+    expect(RCreds::VERSION).not_to be_nil
   end
 
   context 'without Rails' do
