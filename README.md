@@ -2,6 +2,11 @@
 
 RCreds makes working with Rails 5.2/6/7 credentials easier
 
+### Tested with second ruby versions:
+- 2.7.3 
+- 3.0.0 
+- 3.1.1
+
 ## Installation
 
 Add this line to your application's Gemfile:
