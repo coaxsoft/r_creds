@@ -1,6 +1,11 @@
-# RCreds v1.1.0
+# RCreds v1.1.1 - [changelog](https://github.com/coaxsoft/r_creds/blob/master/CHANGELOG.md)
 
 RCreds makes working with Rails 5.2/6/7 credentials easier
+
+### Tested on second ruby versions:
+- 2.7.3 
+- 3.0.0 
+- 3.1.1
 
 ## Installation
 
