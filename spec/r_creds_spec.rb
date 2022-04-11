@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe RCreds do
   it 'has a version number' do
     expect(RCreds::VERSION).not_to be_nil

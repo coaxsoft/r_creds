@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'r_creds/version'
 require_relative 'r_creds/fetcher'
 
