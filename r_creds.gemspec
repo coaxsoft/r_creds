@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir['README.md', 'lib/**/*', 'lib/*', 'r_creds.gemspec']
 
   spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'railties', '~> 7.0'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.11'
   spec.add_development_dependency 'rubocop', '~> 1.27'

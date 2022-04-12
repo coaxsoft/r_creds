@@ -3,14 +3,17 @@
 module RCreds
   class Fetcher
     class NoRailsError < StandardError; end
+    class NilValueError < StandardError; end
 
-    def initialize(keys, default, environment)
+    def initialize(keys, default, environment, environment_first, allow_nil_value)
       @keys = keys.map!(&:to_sym)
       @default = default
       @environment = environment
+      @environment_first = environment_first
+      @allow_nil_value = allow_nil_value
     end
 
-    attr_reader :keys, :default
+    attr_reader :keys, :default, :environment_first, :allow_nil_value, :res
 
     def call
       check_rails
@@ -23,10 +26,29 @@ module RCreds
       (presence?(@environment) || Rails.env).to_sym
     end
 
-    def fetch
-      cred = send("fetch_rails_#{@rails_version}")
+    def check_rails
+      return define_rails_strategy && true if defined?(::Rails)
 
-      presence?(cred) || presence?(ENV[keys.join('_').upcase]) || default
+      raise NoRailsError, 'RCreds works with 5.2 and above'
+    end
+
+    def fetch
+      define_res
+
+      return res if res.present? || allow_nil_value
+
+      raise NilValueError, "can not find existing value by that keys -> #{keys}"
+    end
+
+    def define_res
+      cred = send("fetch_rails#{@rails_version}")
+      env = ENV[keys.join('_').upcase]
+
+      @res = if environment_first.present?
+               presence?(env) || presence?(cred) || default
+             else
+               presence?(cred) || presence?(env) || default
+             end
     end
 
     def presence?(cred)
@@ -43,13 +65,17 @@ module RCreds
       cred.respond_to?(:empty?) ? !!cred.empty? : !cred
     end
 
+    def define_rails_strategy
+      @rails_version = Rails.version.to_i
+    end
+
     def fetch_rails5
       Rails.application.credentials.dig(environment, *keys)
     end
 
     def fetch_rails6
       if rails6_multi_env?
-        puts_warning if presence?(@environment)
+        show_warning if presence?(@environment)
         Rails.application.credentials.dig(*keys)
       else
         Rails.application.credentials.dig(environment, *keys)
@@ -61,17 +87,7 @@ module RCreds
       Rails.application.credentials.content_path.basename.to_s != 'credentials.yml.enc'
     end
 
-    def check_rails
-      return define_rails_strategy && true if defined?(::Rails)
-
-      raise NoRailsError, 'RCreds works with 5.2 and above'
-    end
-
-    def define_rails_strategy
-      @rails_version = Rails.version.to_i
-    end
-
-    def puts_warning
+    def show_warning
       puts "WARNING! Environment choice does not work in Rails >= 6. Fetching credentials for '#{Rails.env}'"
     end
   end

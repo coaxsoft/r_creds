@@ -23,6 +23,10 @@ Or install it yourself as:
 
     $ gem install r_creds
 
+Run the generator:
+
+    $ rails generate r_creds:install
+
 ## Usage
 There are no need to do this:
 ```ruby
