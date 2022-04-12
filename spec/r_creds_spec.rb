@@ -5,7 +5,7 @@ RSpec.describe RCreds do
     expect(RCreds::VERSION).to be_a(String)
   end
 
-  context 'with Rails' do
+  context 'without Rails' do
     it 'raises NoRailsError' do
       expect { described_class.fetch(:test, :credentials) }.to raise_error(RCreds::Fetcher::NoRailsError)
     end
