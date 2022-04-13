@@ -13,7 +13,7 @@ module RCreds
       @allow_nil_value = allow_nil_value
     end
 
-    attr_reader :keys, :default, :environment_first, :allow_nil_value, :res
+    attr_reader :keys, :default, :environment_first, :allow_nil_value, :cred_value
 
     def call
       check_rails
@@ -29,26 +29,26 @@ module RCreds
     def check_rails
       return define_rails_strategy && true if defined?(::Rails)
 
-      raise NoRailsError, 'RCreds works with 5.2 and above'
+      no_rails_error!
     end
 
     def fetch
-      define_res
+      define_cred_value
 
-      return res if res.present? || allow_nil_value
+      nil_value_error! if cred_value.nil? && !allow_nil_value
 
-      raise NilValueError, "can not find existing value by that keys -> #{keys}"
+      cred_value
     end
 
-    def define_res
+    def define_cred_value
       cred = send("fetch_rails#{@rails_version}")
       env = ENV[keys.join('_').upcase]
 
-      @res = if environment_first.present?
-               presence?(env) || presence?(cred) || default
-             else
-               presence?(cred) || presence?(env) || default
-             end
+      @cred_value = if environment_first.present?
+                      presence?(env) || presence?(cred) || default
+                    else
+                      presence?(cred) || presence?(env) || default
+                    end
     end
 
     def presence?(cred)
@@ -89,6 +89,14 @@ module RCreds
 
     def show_warning
       puts "WARNING! Environment choice does not work in Rails >= 6. Fetching credentials for '#{Rails.env}'"
+    end
+
+    def nil_value_error!
+      raise NilValueError, "can not find existing value by that keys -> #{keys}"
+    end
+
+    def no_rails_error!
+      raise NoRailsError, 'RCreds works with 5.2 and above'
     end
   end
 end
