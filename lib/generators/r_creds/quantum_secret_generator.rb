@@ -9,18 +9,17 @@ module RCreds
 
       desc 'Generates quantum computed secret.'
 
-      URI(BASE_URL).then do |uri|
-        uri.query = URI.encode_www_form({ length: 1, type: 'hex16', size: 64 })
+      uri = URI(BASE_URL)
+      uri.query = URI.encode_www_form({ length: 1, type: 'hex16', size: 64 })
 
-        Net::HTTP.get_response(uri).then do |response|
-          case response
-          when Net::HTTPSuccess
-            puts JSON.parse(response.body)['data'][0]
-          else
-            puts "Service(#{BASE_URL}) is unavailable"
-          end
+      Net::HTTP.get_response(uri).then do |response|
+        if response.is_a?(Net::HTTPSuccess)
+          puts JSON.parse(response.body)['data'][0]
+        else
+          puts "Service(#{BASE_URL}) is unavailable"
         end
       end
+
     end
   end
 end
