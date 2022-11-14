@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-lib = File.expand_path('lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+File.expand_path('lib', __dir__).then do |lib|
+  $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+end
+
 require 'r_creds/version'
 
 Gem::Specification.new do |spec|
@@ -10,8 +12,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['OrestF']
   spec.email         = ['falchuko@gmail.com']
 
-  spec.summary       = 'RCreds makes working with Rails 5.2 credentials easier'
-  spec.description   = 'RCreds makes working with Rails 5.2 credentials easier'
+  spec.summary       = 'RCreds makes working with Rails 5.2/6/7 credentials easier'
+  spec.description   = 'RCreds makes working with Rails 5.2/6/7 credentials easier'
   spec.homepage      = 'https://github.com/coaxsoft/r_creds'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.5'
@@ -26,9 +28,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.files = Dir['README.md', 'lib/**/*', 'lib/*', 'r_creds.gemspec']
 
-  spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'railties', '~> 7.0'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.11'
+  spec.add_development_dependency 'bundler', '~> 2.3', '>= 2.3.25'
+  spec.add_development_dependency 'railties', '~> 7.0', '>= 7.0.4'
+  spec.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
+  spec.add_development_dependency 'rspec', '~> 3.11', '~> 3.12'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

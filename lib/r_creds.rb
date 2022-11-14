@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'r_creds/version'
-require_relative 'r_creds/fetcher'
+require 'r_creds/fetcher'
 
 module RCreds
   class << self
@@ -18,7 +18,7 @@ module RCreds
     end
 
     def config
-      yield self
+      yield_self
     end
 
     def fetch(*keys,

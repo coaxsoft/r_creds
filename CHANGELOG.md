@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2022-11-14
+
+### Improvements
+
+- Added quantum secret generator
+
 ## [1.2.0] - 2022-04-12
 
 ### Improvements
