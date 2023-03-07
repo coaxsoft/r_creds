@@ -84,7 +84,7 @@ module RCreds
     alias fetch_rails7 fetch_rails6
 
     def rails6_multi_env?
-      Rails.application.credentials.content_path.basename.to_s != 'credentials.yml.enc'
+      Rails.version.to_d >= 6
     end
 
     def show_warning
