@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2024-12-30
+
+- Add support for Rails 8
+
 ## [1.2.1] - 2023-03-07
 
 - Add support for rails 7 credentials inheritance

@@ -82,6 +82,7 @@ module RCreds
       end
     end
     alias fetch_rails7 fetch_rails6
+    alias fetch_rails8 fetch_rails6
 
     def rails6_multi_env?
       Rails.version.to_d >= 6
